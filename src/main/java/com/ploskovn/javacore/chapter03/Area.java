@@ -1,6 +1,6 @@
 //Вычислить площадь круга
 class Area {
-	public static main(String args[]) {
+	public static void main(String args[]) {
 		double pi, r, a;
 		
 		r = 10.8; // радиус окружности
