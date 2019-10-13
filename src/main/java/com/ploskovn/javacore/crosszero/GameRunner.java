@@ -68,7 +68,6 @@ class GameLogic {
         String choice;
         do {
             cell = (int) (Math.random() * 9 + 1);
-            System.out.println("Ход PC cell: " + cell);
         } while (GameLogic.checkStep(f, cell));
         f.field[cell] = "0";
         System.out.println("Ход PC:");
@@ -79,15 +78,40 @@ class GameLogic {
     }
 
     static boolean checkWin(Field f) {
-        boolean win = false;
-        
-        return win;
+        int[][] winResult = {{0,1,2}, {3,4,5}, {6,7,8}, {0,3,6}, {1,4,7}, {2,5,8}, {0,4,8}, {2,4,6} };
+
+        for (int i=0; i<8; i++) {
+            if (f.field[winResult[i][0]].equals("x") && f.field[winResult[i][1]].equals("x") && (f.field[winResult[i][2]].equals("x"))) {
+                System.out.println("Ура, Вы победили!!!:");
+                f.showFild();
+                return true;
+            } else if (f.field[winResult[i][0]].equals("0") && f.field[winResult[i][1]].equals("0") && (f.field[winResult[i][2]].equals("0"))) {
+                System.out.println("Победил PC:");
+                f.showFild();
+                return true;
+            }
+        }
+
+        int cnt = 0;
+        for (int i=0; i<9; i++) {
+            if (f.field[i].equals("x") || f.field[i].equals("0")) {
+                cnt++;
+            }
+        }
+        if (cnt == 9) {
+            System.out.println("Ничья!");
+            f.showFild();
+            return true;
+        }
+
+        return false;
     }
 }
 
 class GameRunner {
     public static void main(String[] args) {
         Field f = new Field();
+        System.out.println("Игра \"Крестики Нолики\"");
         System.out.println("Это игровое поле:");
         f.showFild();
         System.out.println("Во время Вашего хода нужно указать номер ячейки");
